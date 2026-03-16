@@ -1,4 +1,7 @@
+
 ## ChatIOtalk (Node.js + socketsIO)
+
+from book node aplication by: caio ribeiro pereira 
 
 ## 🏛️Os requisitos do projeto são:
 
