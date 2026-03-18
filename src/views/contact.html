@@ -3,18 +3,187 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Contacts</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h2 {
+        color: #333;
+      }
+
+      .welcome {
+        margin-bottom: 20px;
+        color: #555;
+        font-size: 16px;
+      }
+
+      form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+      }
+
+      form input {
+        flex: 1;
+        min-width: 200px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      form input:focus {
+        border-color: #6a11cb;
+        box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+      }
+
+      form button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      form button:hover {
+        opacity: 0.9;
+        transform: scale(1.03);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+
+      thead {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+      }
+
+      th, td {
+        padding: 12px;
+        text-align: left;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #eee;
+        transition: 0.2s;
+      }
+
+      tbody tr:hover {
+        background: #f5f7ff;
+      }
+
+      a {
+        text-decoration: none;
+        color: #2575fc;
+        font-weight: bold;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .empty {
+        text-align: center;
+        color: #999;
+        padding: 20px;
+      }
+
+      @media (max-width: 600px) {
+        form {
+          flex-direction: column;
+        }
+
+        form button {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <div>
+    <div class="container">
       <header>
-        <h2>Ntalk - Agenda de contatos</h2>
+        <h2>Ntalk - Agenda de contacts</h2>
       </header>
+
+      <div class="welcome">
+        Bem-vindo <strong><%- user.name %></strong>
+      </div>
+
       <section>
-        <p>Bem-vindo <%- username.name %></p>
-      </section>
-      <section>
-        <a href="/sair">Sair</a>
+        <form action="/contacts" method="post">
+          <input type="text" name="contact[nome]" placeholder="Nome" required />
+          <input type="email" name="contact[email]" placeholder="E-mail" required />
+          <button type="submit">Cadastrar</button>
+        </form>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if (user.contacts && user.contacts.length) { %>
+              <% user.contacts.forEach(function(contact, index) { %>
+                <tr>
+                  <td><%- contact.nome %></td>
+                  <td><%- contact.email %></td>
+                  <td>
+                    <a href="/contacts/<%- index %>">Detalhes</a>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="3" class="empty">
+                  Nenhum contato cadastrado
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
       </section>
     </div>
   </body>

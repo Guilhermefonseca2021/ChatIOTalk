@@ -4,7 +4,7 @@
   "description": "enviar e receber mensagens no chat",
   "main": "index.ts",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx --watch src/index.ts",
     "build": "tsc"
   },
   "keywords": [],

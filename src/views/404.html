@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Not Found</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+      }
+
+      .container {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-size: 60px;
+        color: #6a11cb;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #777;
+        margin-bottom: 20px;
+      }
+
+      a {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      a:hover {
+        opacity: 0.9;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>404</h1>
+      <h2>Página não encontrada</h2>
+      <p>Oops... esse endpoint não existe.</p>
+
+      <a href="/contacts">Voltar</a>
+    </div>
+  </body>
+</html>

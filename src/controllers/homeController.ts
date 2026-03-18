@@ -2,20 +2,22 @@ import { Request, Response } from "express";
 
 export function Home(req: Request, res: Response) {
   res.render("home");
-  console.table();
 }
 
 export function login(req: Request, res: Response) {
-  const { username } = req.body;
+  const { user } = req.body;
 
-  if (username?.name && username?.email) {
-
-    req.session.username = username.name;
+  if (user?.name && user?.email) {
+    let createdUser = req.session.user = {
+      name: user.name,
+      email: user.email,
+      contacts: [],
+    };
 
     res.render("contact", {
-      username: { name: req.session.username }
+      user: req.session.user,
     });
-
+    console.table(createdUser);
     return;
   }
 
