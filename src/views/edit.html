@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <header>
+        <h2>Ntalk - Editar contato</h2>
+      </header>
+      <section>
+        <form action="/contato/<%- id %>" method="post">
+          <input type="hidden" name="_method" value="put" />
+          <label>Nome:</label>
+          <input type="text" name="contato[nome]" value="<%- contato.nome %>" />
+          <label>E-mail:</label>
+          <input
+            type="text"
+            name="contato[email]"
+            value="<%- contato.email %>"
+          />
+          <button type="submit">Atualizar</button>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

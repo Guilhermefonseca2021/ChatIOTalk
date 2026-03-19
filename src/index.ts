@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import path from "node:path";
 import routes from "./routes/routes";
 import ejs from "ejs";
@@ -7,6 +7,7 @@ import session from "express-session";
 import helmet from "helmet";
 import contactRoutes from "./routes/contactRoutes";
 import { notFound } from "./middlewares/notFound";
+import authenticator from "./controllers/authenticator";
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.set("view engine", "html");
  
 app.use(express.urlencoded({ extended: true })); 
 app.use(routes);
-app.use(contactRoutes)
+app.use(authenticator, contactRoutes)
 app.use(notFound);
 
 app.listen(3000, () => {

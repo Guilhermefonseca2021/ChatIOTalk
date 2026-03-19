@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=div, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <header>
+        <h2>Ntalk - Dados do contact</h2>
+      </header>
+      <section>
+        <form action="/contact/<%- id %>" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <p><label>Nome:</label><%- contact.name %></p>
+          <p><label>E-mail:</label><%- contact.email %></p>
+          <p>
+            <button type="submit">Excluir</button>
+            <a href="/contact/<%- id %>/editar">Editar</a>
+          </p>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>
