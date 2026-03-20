@@ -14,7 +14,7 @@ export function login(req: Request, res: Response) {
       contacts: [],
     };
 
-    res.render("contact", {
+    res.render("contacts", {
       user: req.session.user,
     });
     console.table(createdUser);

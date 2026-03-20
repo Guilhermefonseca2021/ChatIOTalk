@@ -4,7 +4,7 @@ import {
   createContact,
   showContact,
   editContact,
-//   getUserContact,
+  getUserContact,
   updateContact,
   destroyContact,
 } from "../controllers/contactController";
@@ -12,10 +12,11 @@ import {
 const contactRoutes = Router();
 
 contactRoutes.get("/contacts", Contact);
-contactRoutes.get("/contato/:id", showContact);
-contactRoutes.post("/contato", createContact);
-contactRoutes.get("/contato/:id/editar", editContact);
-contactRoutes.put("/contato/:id", updateContact);
-contactRoutes.delete("/contato/:id", destroyContact);
+contactRoutes.get("/contacts/:id", showContact);
+contactRoutes.post("/contacts", createContact);
+contactRoutes.get("/contacts/:id/detalhes", getUserContact);
+contactRoutes.get("/contacts/:id/editar", editContact);
+contactRoutes.put("/contacts/:id", updateContact);
+contactRoutes.delete("/contacts/:id", destroyContact);
 
 export default contactRoutes;

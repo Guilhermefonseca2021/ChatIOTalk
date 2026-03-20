@@ -8,7 +8,7 @@ export function Contact(req: Request, res: Response) {
     contacts: Array.isArray(userSession?.contacts) ? userSession.contacts : [],
   };
 
-  res.render("contact", { user });
+  res.render("contacts", { user });
 }
 
 export function getUserContact(req: Request, res: Response) {
@@ -20,25 +20,56 @@ export function getUserContact(req: Request, res: Response) {
     contatos,
   };
 
-  res.render("contatos/index", params);
+  res.render("contacts", params);
 }
 
 export function showContact(req: Request, res: Response) {
-  let ParamsId = req.params.ParamsId;
-  let contact = req.session.user.contacts[ParamsId];
+  const ParamsId = Number(req.params.id);
+
+  const user = req.session.user;
+
+  if (!user || !Array.isArray(user.contacts)) {
+    return res.send("Usuário ou contatos inválidos");
+  }
+
+  const contact = user.contacts[ParamsId];
+
+  if (!contact) {
+    return res.render("erro", { error: "Contato não encontrado" });
+  }
 
   const params = {
     contact,
     id: ParamsId,
   };
 
-  res.render("contacts/show", params);
+  console.log(params);
+
+  res.render("show", params);
 }
 
 export function createContact(req: Request, res: Response) {
-  let contact = req.body.contact;
-  let users = req.session.user || null;
-  users.contacts.push(contact);
+  let contact = req.body.contact || {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  if (!req.session.user) {
+    req.session.user = {
+      name: "Usuário",
+      email: "teste@email.com",
+      contacts: [],
+    };
+  }
+
+  if (!Array.isArray(req.session.user.contacts)) {
+    req.session.user.contacts = [];
+  }
+
+  req.session.user.contacts.push(contact);
+
+  console.log(req.session.user);
+
   res.redirect("/contacts");
 }
 

@@ -150,7 +150,7 @@
 
       <section>
         <form action="/contacts" method="post">
-          <input type="text" name="contact[nome]" placeholder="Nome" required />
+          <input type="text" name="contact[name]" placeholder="name" required />
           <input type="email" name="contact[email]" placeholder="E-mail" required />
           <button type="submit">Cadastrar</button>
         </form>
@@ -168,10 +168,11 @@
             <% if (user.contacts && user.contacts.length) { %>
               <% user.contacts.forEach(function(contact, index) { %>
                 <tr>
-                  <td><%- contact.nome %></td>
+                  <td><%- contact.name %></td>
                   <td><%- contact.email %></td>
                   <td>
                     <a href="/contacts/<%- index %>">Detalhes</a>
+                    <a href="/chat/<%- contact.email %>">Conversar</a>
                   </td>
                 </tr>
               <% }) %>

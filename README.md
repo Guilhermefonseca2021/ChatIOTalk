@@ -27,11 +27,20 @@ from book node aplication by: caio ribeiro pereira
 ## Como Rodar sistema
 
 ```js
-git clone 
-
+$  clone repositorio
+git clone https://github.com/Guilhermefonseca2021/ChatIOTalk.git
+$  entre na pasta
 cd ChatIOtalk
-
+$  instale as dependencias
 npm install
-
-npm start
+$  rode o servidor localmente
+npm run dev
 ```
+
+<a href="https://chat-io-talk.vercel.app/">Clique aqui para ver ambiente online </a>
+
+## Por que de cada tecnoliga:
+
+O Socket.IO escolhe automaticamente a melhor forma de comunicação entre cliente e servidor (WebSocket, polling, etc.) conforme o navegador.
+Se houver suporte a WebSockets/Flash, usa comunicação bidirecional em tempo real; caso contrário, simula via requisições AJAX.
+Isso garante compatibilidade com navegadores antigos, abstraindo toda a complexidade para o desenvolvedor.
