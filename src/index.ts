@@ -11,13 +11,18 @@ import contactRoutes from "./routes/contactRoutes";
 import authenticator from "./middlewares/authenticator";
 import { notFound } from "./middlewares/notFound";
 import { errorHandler } from "./middlewares/errorHandler";
+import chatRoutes from "./routes/chatRoutes";
 
 const app = express();
-const server = http.createServer(app); // servidor
-const io = new Server(server); // conecta socket ao servidor
+const server = http.createServer(app);
+const io = new Server(server); 
 
 // middlewares
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 app.use(cookieParser());
 app.use(
   session({
@@ -38,6 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 // rotas
 app.use(routes);
 app.use(authenticator, contactRoutes);
+app.use(authenticator, chatRoutes);
 
 // 404 SEMPRE POR ÚLTIMO
 app.use(notFound);
@@ -47,16 +53,15 @@ app.use(errorHandler);
 io.on("connection", (socket) => {
   console.log("🔌 Cliente conectado");
 
+  socket.on("send-server", (data) => {
+    const msg = "<b>" + data.name + ":</b> " + data.msg + "<br>";
+
+    socket.emit("send-client", msg);
+    socket.broadcast.emit("send-client", msg);
+  });
+
   socket.on("disconnect", () => {
     console.log("❌ Cliente desconectado");
-  });
-});
-
-io.sockets.on("connection", function (client) {
-  client.on("send-server", function (data) {
-    var msg = "<b>" + data.nome + ":</b> " + data.msg + "<br>";
-    client.emit("send-client", msg);
-    client.broadcast.emit("send-client", msg);
   });
 });
 

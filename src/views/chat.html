@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ntalk Premium</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family:
+          Segoe UI,
+          Arial;
+      }
+
+      body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #020617, #0f172a);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+
+      .chat {
+        width: 95%;
+        max-width: 750px;
+        height: 90vh;
+        background: #020617;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 25px rgba(99, 102, 241, 0.2);
+        overflow: hidden;
+      }
+
+      header {
+        padding: 18px;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        font-weight: bold;
+      }
+
+      #chat {
+        flex: 1;
+        overflow: auto;
+        padding: 15px;
+      }
+
+      #chat b {
+        color: #a5b4fc;
+      }
+
+      .input-area {
+        display: flex;
+        padding: 12px;
+        background: #020617;
+        border-top: 1px solid #1e293b;
+      }
+
+      .input-area input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #0f172a;
+        color: white;
+        outline: none;
+      }
+
+      .input-area button {
+        margin-left: 8px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        cursor: pointer;
+      }
+
+      .input-area button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="chat">
+      <header>💬 Ntalk Premium</header>
+
+      <section id="chat"></section>
+
+      <div class="input-area">
+        <input type="hidden" id="name" value="<%- user?.name || '' %>">
+        <input type="text" id="msg" placeholder="Digite sua mensagem..." />
+        <button onclick="enviar()">Enviar</button>
+      </div>
+    </div>
+
+    <script>
+      var socket = io.connect("http://localhost:3000");
+
+      socket.on("send-client", function (msg) {
+        var chat = document.getElementById("chat");
+        chat.innerHTML += "<div>" + msg + "</div>";
+        chat.scrollTop = chat.scrollHeight;
+      });
+
+      var enviar = function () {
+        var name = document.getElementById("name").value;
+        var msg = document.getElementById("msg").value;
+
+        if (!msg) return;
+
+        socket.emit("send-server", { name: name, msg: msg });
+        document.getElementById("msg").value = "";
+      };
+    </script>
+  </body>
+</html>
